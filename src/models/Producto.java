@@ -11,20 +11,20 @@ package models;
  */
 public class Producto {
     private String nombre;
-    private int precio;
+    private float precio;
     private int cantidad;
     
-    public final int PRECIO_ALPURA = 12;
-    public final int PRECIO_HELADO_SENCILLO = 15;
-    public final int PRECIO_HELADO_DOBLE = 20;
-    public final int PRECIO_CANASTA = 30;
-    public final int PRECIO_CUARTO = 35;
-    public final int PRECIO_MEDIO = 55;
-    public final int PRECIO_LITRO = 110;
-    public final int PRECIO_PALETA_CHICA = 4;
-    public final int PRECIO_PALETA_GRANDE = 12;
-    public final int PRECIO_DANONINO = 6;
-    public final int PRECIO_CHAMOYADA = 12;
+    public final float PRECIO_ALPURA = 12;
+    public final float PRECIO_HELADO_SENCILLO = 15;
+    public final float PRECIO_HELADO_DOBLE = 20;
+    public final float PRECIO_CANASTA = 30;
+    public final float PRECIO_CUARTO = 35;
+    public final float PRECIO_MEDIO = 55;
+    public final float PRECIO_LITRO = 110;
+    public final float PRECIO_PALETA_CHICA = 4;
+    public final float PRECIO_PALETA_GRANDE = 12;
+    public final float PRECIO_DANONINO = 6;
+    public final float PRECIO_CHAMOYADA = 12;
 
     public Producto() {
     }
@@ -37,11 +37,11 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public int getPrecio() {
+    public float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(float precio) {
         this.precio = precio;
     }
 

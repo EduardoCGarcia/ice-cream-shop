@@ -1,7 +1,8 @@
 package main;
 
 import Utilerias.FondoImagen;
-import controllers.Venta;
+import controllers.VentaController;
+import models.Venta;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Producto;
@@ -14,14 +15,14 @@ public class MainFrame extends javax.swing.JFrame {
 
     DefaultTableModel modelo;
     Venta venta = new Venta();
-    int total = 0;
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
-        this.setExtendedState(6);
+        //this.setExtendedState(4);
+        this.setLocationRelativeTo(null);
         modelo = new DefaultTableModel();
         modelo.addColumn("Producto");
         modelo.addColumn("Cantidad");
@@ -357,9 +358,9 @@ public class MainFrame extends javax.swing.JFrame {
             modelo.removeRow(i);
         }
         venta.guardarVenta();
-        total = 0;
-        this.lblTotal.setText("Total: " + total + ".00 MXN");
-        JOptionPane.showMessageDialog(null, "Venta realizada con éxito");
+        venta = new Venta();
+        this.lblTotal.setText("Total: " + venta.getTotal() + "0 MXN");
+        VentaController.crearVenta(venta);
     }//GEN-LAST:event_btnTerminarVentaActionPerformed
 
     /**
@@ -452,17 +453,18 @@ public class MainFrame extends javax.swing.JFrame {
             fila[1] = nuevo.getCantidad() + "";
             fila[2] = nuevo.getPrecio() + "";
             modelo.addRow(fila);
+            venta.setTotal(venta.getTotal() + nuevo.getPrecio());
             venta.addProducto(nuevo);
-            total += nuevo.getPrecio();
-            this.lblTotal.setText("Total: " + total + ".00 MXN");
+            
+            this.lblTotal.setText("Total: " + venta.getTotal() + "0 MXN");
         } else {
             int renglon = venta.indexOf(nuevo.getNombre());
             Producto actual = (Producto) venta.getProductos().get(renglon);
             actual.setCantidad(actual.getCantidad() + 1);
             venta.getProductos().set(renglon, actual);
             modelo.setValueAt(actual.getCantidad() + "", renglon, 1);
-            total += nuevo.getPrecio();
-            this.lblTotal.setText("Total: " + total + ".00 MXN");
+            venta.setTotal(venta.getTotal() + nuevo.getPrecio());
+            this.lblTotal.setText("Total: " + venta.getTotal() + "0 MXN");
         }
     }
 

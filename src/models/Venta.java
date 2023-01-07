@@ -1,5 +1,6 @@
-package controllers;
+package models;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import models.Producto;
 
@@ -9,9 +10,14 @@ import models.Producto;
  */
 public class Venta {
 
-    private ArrayList<Producto> productos = new ArrayList();
+    private ArrayList<Producto> productos;
+    private LocalDate fecha;
+    private float total;
 
     public Venta() {
+        this.productos = new ArrayList();
+        this.total = 0;
+        this.fecha = LocalDate.now();
     }
 
     public ArrayList getProductos() {
@@ -48,4 +54,24 @@ public class Venta {
         productos.clear();
     }
 
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
+
+    public static void main(String[] args) {
+        Venta v = new Venta();
+        System.out.println(v.getFecha());
+    }
 }
