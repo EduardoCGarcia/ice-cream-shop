@@ -15,10 +15,11 @@ public class MySQLConnection {
     private String pass = "";
     private String driver = "com.mysql.cj.jdbc.Driver";
     private Connection conn;
+    
     public MySQLConnection(){
     }
     
-    public Connection conectar(){
+    public void conectar(){
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(url+bd, user, pass);
@@ -26,15 +27,21 @@ public class MySQLConnection {
         } catch (ClassNotFoundException|SQLException ex) {
             System.out.println("No se pudo conectar a la base de datos");
         }
-        return conn;
     }
     
     public void desconectar(){
         try {
             conn.close();
+            System.out.println("Conexion terminada");
         } catch (SQLException ex) {
             System.out.println("Error al desconectar");
         }
     }
+
+    public Connection getConn() {
+        return conn;
+    }
+    
+    
     
 }

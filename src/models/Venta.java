@@ -20,7 +20,7 @@ public class Venta {
         this.fecha = LocalDate.now();
     }
 
-    public ArrayList getProductos() {
+    public ArrayList<Producto> getProductos() {
         return productos;
     }
 
@@ -32,18 +32,18 @@ public class Venta {
         this.productos.add(nuevo);
     }
 
-    public boolean inVenta(String nombre) {
+    public boolean inVenta(int id) {
         for (Producto p : productos) {
-            if (p.getNombre().equals(nombre)) {
+            if (p.getId() == id) {
                 return true;
             }
         }
         return false;
     }
 
-    public int indexOf(String nombre) {
+    public int indexOf(int id) {
         for (int i = 0; i < productos.size(); i++) {
-            if (productos.get(i).getNombre().equals(nombre)) {
+            if (productos.get(i).getId() == id) {
                 return i;
             }
         }

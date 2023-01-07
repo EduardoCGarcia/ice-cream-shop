@@ -1,7 +1,9 @@
 package main;
 
 import Utilerias.FondoImagen;
+import controllers.ProductoController;
 import controllers.VentaController;
+import java.util.ArrayList;
 import models.Venta;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,6 +17,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     DefaultTableModel modelo;
     Venta venta = new Venta();
+    ArrayList<Producto> productosDB = ProductoController.getPrecios();
 
     /**
      * Creates new form MainFrame
@@ -28,6 +31,8 @@ public class MainFrame extends javax.swing.JFrame {
         modelo.addColumn("Cantidad");
         modelo.addColumn("Precio");
         this.tblVenta.setModel(modelo);
+        this.activateButton();
+        
     }
 
     /**
@@ -61,6 +66,7 @@ public class MainFrame extends javax.swing.JFrame {
         tblVenta = new javax.swing.JTable();
         pnlBtnTerminarVenta = new javax.swing.JPanel();
         btnTerminarVenta = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         lblTotal = new javax.swing.JLabel();
         pnlVentaPersonalizada = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
@@ -74,7 +80,7 @@ public class MainFrame extends javax.swing.JFrame {
         pnlFondo.setLayout(new java.awt.BorderLayout());
 
         pnlButtons.setBackground(new java.awt.Color(255, 189, 216));
-        pnlButtons.setBorder(javax.swing.BorderFactory.createTitledBorder("Productos para vender"));
+        pnlButtons.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Productos para vender", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
         pnlButtons.setPreferredSize(new java.awt.Dimension(600, 500));
         pnlButtons.setLayout(new java.awt.GridLayout(4, 3));
 
@@ -253,6 +259,18 @@ public class MainFrame extends javax.swing.JFrame {
         });
         pnlBtnTerminarVenta.add(btnTerminarVenta);
 
+        jButton1.setBackground(new java.awt.Color(255, 51, 51));
+        jButton1.setFont(new java.awt.Font("Bell MT", 1, 24)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Cancelar venta");
+        jButton1.setPreferredSize(new java.awt.Dimension(250, 100));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        pnlBtnTerminarVenta.add(jButton1);
+
         lblTotal.setFont(new java.awt.Font("Bodoni MT", 0, 24)); // NOI18N
         lblTotal.setForeground(new java.awt.Color(0, 0, 0));
         lblTotal.setText("Total: 0.00 MXN");
@@ -306,46 +324,57 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnAlpuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlpuraActionPerformed
         this.crearFila(10);
+        this.activateButton();
     }//GEN-LAST:event_btnAlpuraActionPerformed
 
     private void btnSencilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSencilloActionPerformed
         this.crearFila(1);
+        this.activateButton();
     }//GEN-LAST:event_btnSencilloActionPerformed
 
     private void btnDobleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDobleActionPerformed
         this.crearFila(2);
+        this.activateButton();
     }//GEN-LAST:event_btnDobleActionPerformed
 
     private void btnCanastaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanastaActionPerformed
         this.crearFila(3);
+        this.activateButton();
     }//GEN-LAST:event_btnCanastaActionPerformed
 
     private void btnCuartoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuartoActionPerformed
         this.crearFila(4);
+        this.activateButton();
     }//GEN-LAST:event_btnCuartoActionPerformed
 
     private void btnMedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedioActionPerformed
         this.crearFila(5);
+        this.activateButton();
     }//GEN-LAST:event_btnMedioActionPerformed
 
     private void btnLitroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLitroActionPerformed
         this.crearFila(6);
+        this.activateButton();
     }//GEN-LAST:event_btnLitroActionPerformed
 
     private void btnPaletaChicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaletaChicaActionPerformed
         this.crearFila(7);
+        this.activateButton();
     }//GEN-LAST:event_btnPaletaChicaActionPerformed
 
     private void btnPaletaGrandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaletaGrandaActionPerformed
         this.crearFila(8);
+        this.activateButton();
     }//GEN-LAST:event_btnPaletaGrandaActionPerformed
 
     private void btnChamoyadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChamoyadaActionPerformed
         this.crearFila(9);
+        this.activateButton();
     }//GEN-LAST:event_btnChamoyadaActionPerformed
 
     private void btnDanoninoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanoninoActionPerformed
         this.crearFila(11);
+        this.activateButton();
     }//GEN-LAST:event_btnDanoninoActionPerformed
 
     private void btnConoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConoActionPerformed
@@ -357,11 +386,22 @@ public class MainFrame extends javax.swing.JFrame {
         for (int i = fila - 1; i >= 0; i--) {
             modelo.removeRow(i);
         }
+        VentaController.crearVenta(venta);
         venta.guardarVenta();
         venta = new Venta();
         this.lblTotal.setText("Total: " + venta.getTotal() + "0 MXN");
-        VentaController.crearVenta(venta);
+        this.activateButton();
     }//GEN-LAST:event_btnTerminarVentaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int fila = tblVenta.getRowCount();
+        for (int i = fila - 1; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+        venta = new Venta();
+        this.lblTotal.setText("Total: " + venta.getTotal() + "0 MXN");
+        this.activateButton();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -403,51 +443,40 @@ public class MainFrame extends javax.swing.JFrame {
         String fila[] = new String[3];
         switch (op) {
             case 1 -> {
-                nuevo.setNombre("HELADO SENSILLO");
-                nuevo.setPrecio(nuevo.PRECIO_HELADO_SENCILLO);
+                nuevo = productosDB.get(0);
             }
             case 2 -> {
-                nuevo.setNombre("HELADO DOBLE");
-                nuevo.setPrecio(nuevo.PRECIO_HELADO_DOBLE);
+                nuevo = productosDB.get(1);
             }
             case 3 -> {
-                nuevo.setNombre("CANASTA");
-                nuevo.setPrecio(nuevo.PRECIO_CANASTA);
+                nuevo = productosDB.get(2);
             }
             case 4 -> {
-                nuevo.setNombre("1/4 DE LITRO");
-                nuevo.setPrecio(nuevo.PRECIO_CUARTO);
+                nuevo = productosDB.get(3);
             }
             case 5 -> {
-                nuevo.setNombre("1/2 LITRO");
-                nuevo.setPrecio(nuevo.PRECIO_MEDIO);
+                nuevo = productosDB.get(4);
             }
             case 6 -> {
-                nuevo.setNombre("1 LITRO");
-                nuevo.setPrecio(nuevo.PRECIO_LITRO);
+                nuevo = productosDB.get(5);
             }
             case 7 -> {
-                nuevo.setNombre("PALETA CHICA");
-                nuevo.setPrecio(nuevo.PRECIO_PALETA_CHICA);
+                nuevo = productosDB.get(6);
             }
             case 8 -> {
-                nuevo.setNombre("PALETA GRANDE");
-                nuevo.setPrecio(nuevo.PRECIO_PALETA_GRANDE);
+                nuevo = productosDB.get(7);
             }
             case 9 -> {
-                nuevo.setNombre("CHAMOYADA");
-                nuevo.setPrecio(nuevo.PRECIO_CHAMOYADA);
+                nuevo = productosDB.get(8);
             }
             case 10 -> {
-                nuevo.setNombre("ALPURA");
-                nuevo.setPrecio(nuevo.PRECIO_ALPURA);
+                nuevo = productosDB.get(9);
             }
             case 11 -> {
-                nuevo.setNombre("DANONINO");
-                nuevo.setPrecio(nuevo.PRECIO_DANONINO);
+                nuevo = productosDB.get(10);
             }
         }
-        if (!venta.inVenta(nuevo.getNombre())) {
+        if (!venta.inVenta(nuevo.getId())) {
             nuevo.setCantidad(1);
             fila[0] = nuevo.getNombre();
             fila[1] = nuevo.getCantidad() + "";
@@ -458,7 +487,7 @@ public class MainFrame extends javax.swing.JFrame {
             
             this.lblTotal.setText("Total: " + venta.getTotal() + "0 MXN");
         } else {
-            int renglon = venta.indexOf(nuevo.getNombre());
+            int renglon = venta.indexOf(nuevo.getId());
             Producto actual = (Producto) venta.getProductos().get(renglon);
             actual.setCantidad(actual.getCantidad() + 1);
             venta.getProductos().set(renglon, actual);
@@ -468,6 +497,13 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
+    public void activateButton(){
+        if(venta.getProductos().isEmpty()){
+            this.btnTerminarVenta.setEnabled(false);
+        }else{
+            this.btnTerminarVenta.setEnabled(true);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlpura;
     private javax.swing.JButton btnCanasta;
@@ -482,6 +518,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnPaletaGranda;
     private javax.swing.JButton btnSencillo;
     private javax.swing.JButton btnTerminarVenta;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton14;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
