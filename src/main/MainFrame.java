@@ -3,6 +3,7 @@ package main;
 import Utilerias.FondoImagen;
 import controllers.ProductoController;
 import controllers.VentaController;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import models.Venta;
 import javax.swing.JOptionPane;
@@ -25,6 +26,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         //this.setExtendedState(4);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/icon.png")));
         this.setLocationRelativeTo(null);
         modelo = new DefaultTableModel();
         modelo.addColumn("Producto");
@@ -32,7 +34,7 @@ public class MainFrame extends javax.swing.JFrame {
         modelo.addColumn("Precio");
         this.tblVenta.setModel(modelo);
         this.activateButton();
-        
+        this.btnCono.setEnabled(false);
     }
 
     /**
@@ -72,6 +74,7 @@ public class MainFrame extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jButton14 = new javax.swing.JButton();
+        btnVentasDelDia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
@@ -281,26 +284,35 @@ public class MainFrame extends javax.swing.JFrame {
         pnlVentaPersonalizada.setBackground(new java.awt.Color(255, 189, 216));
         pnlVentaPersonalizada.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Extras", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
 
+        jButton14.setBackground(new java.awt.Color(95, 44, 90));
+        jButton14.setFont(new java.awt.Font("Bell MT", 1, 24)); // NOI18N
         jButton14.setText("Agregar");
+
+        btnVentasDelDia.setBackground(new java.awt.Color(95, 44, 90));
+        btnVentasDelDia.setFont(new java.awt.Font("Bell MT", 1, 24)); // NOI18N
+        btnVentasDelDia.setText("Ventas del día");
+        btnVentasDelDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentasDelDiaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlVentaPersonalizadaLayout = new javax.swing.GroupLayout(pnlVentaPersonalizada);
         pnlVentaPersonalizada.setLayout(pnlVentaPersonalizadaLayout);
         pnlVentaPersonalizadaLayout.setHorizontalGroup(
             pnlVentaPersonalizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlVentaPersonalizadaLayout.createSequentialGroup()
-                .addGroup(pnlVentaPersonalizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlVentaPersonalizadaLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVentaPersonalizadaLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(pnlVentaPersonalizadaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlVentaPersonalizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnVentasDelDia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlVentaPersonalizadaLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlVentaPersonalizadaLayout.createSequentialGroup()
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlVentaPersonalizadaLayout.setVerticalGroup(
             pnlVentaPersonalizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,7 +322,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVentasDelDia, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         pnlCuenta.add(pnlVentaPersonalizada, java.awt.BorderLayout.LINE_END);
@@ -378,7 +392,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDanoninoActionPerformed
 
     private void btnConoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConoActionPerformed
-        // TODO add your handling code here:
+        //TODO cear un apatado para vende conos
+        this.btnCono.setEnabled(false);
     }//GEN-LAST:event_btnConoActionPerformed
 
     private void btnTerminarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminarVentaActionPerformed
@@ -402,6 +417,13 @@ public class MainFrame extends javax.swing.JFrame {
         this.lblTotal.setText("Total: " + venta.getTotal() + "0 MXN");
         this.activateButton();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnVentasDelDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasDelDiaActionPerformed
+        ReporteDeVentas r = new ReporteDeVentas(this, true);
+        r.setSize(800, 500);
+        r.setLocationRelativeTo(null);
+        r.setVisible(true);
+    }//GEN-LAST:event_btnVentasDelDiaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -518,6 +540,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnPaletaGranda;
     private javax.swing.JButton btnSencillo;
     private javax.swing.JButton btnTerminarVenta;
+    private javax.swing.JButton btnVentasDelDia;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton14;
     private javax.swing.JLabel jLabel1;

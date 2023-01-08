@@ -70,8 +70,4 @@ public class Venta {
         this.total = total;
     }
 
-    public static void main(String[] args) {
-        Venta v = new Venta();
-        System.out.println(v.getFecha());
-    }
 }
